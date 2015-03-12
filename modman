@@ -1,0 +1,3 @@
+app/code/community/Raveinfosys/Deleteorder/                     app/code/community/Raveinfosys/Deleteorder/
+app/design/adminhtml/default/default/layout/deleteorder.xml     app/design/adminhtml/default/default/layout/deleteorder.xml
+app/etc/modules/Raveinfosys_Deleteorder.xml                     app/etc/modules/Raveinfosys_Deleteorder.xml
