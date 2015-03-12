@@ -2,6 +2,8 @@
 
 [http://www.magentocommerce.com/magento-connect/delete-orders-6.html](http://www.magentocommerce.com/magento-connect/delete-orders-6.html)
 
+[http://www.raveinfosys.com/business-it-services/e-commerce-applications/magento-services/magento-delete-orders/](http://www.raveinfosys.com/business-it-services/e-commerce-applications/magento-services/magento-delete-orders/)
+
 Author Name:  Rave Infosys
 
 Author User:    raveinfo
