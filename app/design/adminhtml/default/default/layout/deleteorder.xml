@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <deleteorder_adminhtml_deleteorder_index>
+        <reference name="content">
+            <block type="deleteorder/adminhtml_deleteorder" name="deleteorder" />
+        </reference>
+    </deleteorder_adminhtml_deleteorder_index>
+</layout>
