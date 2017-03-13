@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Raveinfosys_Deleteorder>
-            <version>0.1.0</version>
+            <version>1.0.9</version>
         </Raveinfosys_Deleteorder>
     </modules>
     <frontend>
@@ -25,13 +25,13 @@
     </frontend>
     <admin>
         <routers>
-			<deleteorder>
-				<use>admin</use>
-				<args>
-					<module>Raveinfosys_Deleteorder</module>
-					<frontName>deleteorder</frontName>
-				</args>
-			</deleteorder>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <raveinfosys_deleteorder before="Mage_Adminhtml">Raveinfosys_Deleteorder_Adminhtml</raveinfosys_deleteorder>
+                    </modules>
+                </args>
+            </adminhtml>
         </routers>
     </admin>
     <adminhtml>
@@ -52,9 +52,9 @@
 		</acl>
 		<layout>
 			<updates>
-				<deleteorder>
+				<raveinfosys_deleteorder>
 					<file>deleteorder.xml</file>
-				</deleteorder>
+				</raveinfosys_deleteorder>
 			</updates>
 		</layout>
     </adminhtml>   
@@ -101,15 +101,15 @@
            <rewrite>
                 <sales_order_view>Raveinfosys_Deleteorder_Block_Adminhtml_Sales_Order_View</sales_order_view>
             </rewrite>
-        </adminhtml>
+            </adminhtml>
             <deleteorder>
                 <class>Raveinfosys_Deleteorder_Block</class>
             </deleteorder>
         </blocks>
         <helpers>
-            <deleteorder>
+            <raveinfosys_deleteorder>
                 <class>Raveinfosys_Deleteorder_Helper</class>
-            </deleteorder>
+            </raveinfosys_deleteorder>
         </helpers>
     </global>
 </config>

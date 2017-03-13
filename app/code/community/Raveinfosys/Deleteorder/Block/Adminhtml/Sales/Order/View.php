@@ -13,7 +13,7 @@
 	
     public function getDeleteUrl()
     {
-        return $this->getUrl('deleteorder/adminhtml_deleteorder/delete', array('_current'=>true));
+        return $this->getUrl('*/deleteorder/delete', array('_current'=>true));
     }	
 }
 ?>

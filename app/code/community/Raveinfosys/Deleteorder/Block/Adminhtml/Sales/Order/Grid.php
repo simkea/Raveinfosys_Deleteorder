@@ -163,7 +163,7 @@ class Raveinfosys_Deleteorder_Block_Adminhtml_Sales_Order_Grid extends Mage_Admi
 		
         $this->getMassactionBlock()->addItem('delete_order', array(
              'label'=> Mage::helper('sales')->__('Delete Order'),
-             'url'  => $this->getUrl('deleteorder/adminhtml_deleteorder/massDelete'),
+             'url'  => $this->getUrl('*/deleteorder/massDelete'),
 			 'confirm'  => Mage::helper('sales')->__('Are you sure you want to delete order?')
         ));		
 
