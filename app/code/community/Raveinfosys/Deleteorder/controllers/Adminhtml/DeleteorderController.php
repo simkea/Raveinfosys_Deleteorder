@@ -30,6 +30,10 @@ class Raveinfosys_Deleteorder_Adminhtml_DeleteorderController extends Mage_Admin
 			->renderLayout();
 	}
 	public function deleteAction() {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
 		if($order = $this->_initOrder()) {
 			try {
      		    $order->delete();
@@ -45,6 +49,10 @@ class Raveinfosys_Deleteorder_Adminhtml_DeleteorderController extends Mage_Admin
 		$this->_redirectUrl(Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/index'));
 	}
     public function massDeleteAction() {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
         $deleteorderIds = $this->getRequest()->getParam('order_ids');
 		if(!is_array($deleteorderIds)) {
 			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select item(s)'));
@@ -65,24 +73,29 @@ class Raveinfosys_Deleteorder_Adminhtml_DeleteorderController extends Mage_Admin
         }
 		$this->_redirectUrl(Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/index'));
     }
-	
-	public function _remove($order_id){
-		$resource = Mage::getSingleton('core/resource');
-        $delete = $resource->getConnection('core_read');
-        $order_table = $resource->getTableName('sales_flat_order_grid');
-        $invoice_table = $resource->getTableName('sales_flat_invoice_grid');
-        $shipment_table = $resource->getTableName('sales_flat_shipment_grid');
-        $creditmemo_table = $resource->getTableName('sales_flat_creditmemo_grid');
-		$sql = "DELETE FROM  " . $order_table . " WHERE entity_id = " . $order_id . ";";
-        $delete->query($sql);
-		$sql = "DELETE FROM  " . $invoice_table . " WHERE order_id = " . $order_id . ";";
-        $delete->query($sql);
-		$sql = "DELETE FROM  " . $shipment_table . " WHERE order_id = " . $order_id . ";";
-        $delete->query($sql);
-		$sql = "DELETE FROM  " . $creditmemo_table . " WHERE order_id = " . $order_id . ";";
-        $delete->query($sql);
+
+	private function _remove($orderId){
+
+        $this->_removeEntities('sales/order_grid', $orderId, 'entity_id');
+        $this->_removeEntities('sales/order_invoice', $orderId);
+        $this->_removeEntities('sales/order_shipment', $orderId);
+        $this->_removeEntities('sales/order_creditmemo', $orderId);
 		
 		return true;
 	}
+
+	private function _removeEntities($modelClass, $orderId, $columnName = 'order_id')
+    {
+        /** @var Varien_Db_Adapter_Interface $write */
+        $write = Mage::getSingleton('core/resource')
+                     ->getConnection('core_write');
+        /** @var Mage_Core_Model_Resource_Db_Collection_Abstract $collection */
+        $collection = Mage::getResourceModel($modelClass . '_collection');
+        $query      = $collection->getSelect()
+                                 ->where('main_table.' . $columnName . ' = ?',
+                                     $orderId)
+                                 ->deleteFromSelect('main_table');
+        $write->query($query);
+    }
 	
 }
