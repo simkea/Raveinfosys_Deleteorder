@@ -30,6 +30,10 @@ class Raveinfosys_Deleteorder_Adminhtml_DeleteorderController extends Mage_Admin
 			->renderLayout();
 	}
 	public function deleteAction() {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
 		if($order = $this->_initOrder()) {
 			try {
      		    $order->delete();
@@ -45,6 +49,10 @@ class Raveinfosys_Deleteorder_Adminhtml_DeleteorderController extends Mage_Admin
 		$this->_redirectUrl(Mage::helper('adminhtml')->getUrl('adminhtml/sales_order/index'));
 	}
     public function massDeleteAction() {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
         $deleteorderIds = $this->getRequest()->getParam('order_ids');
 		if(!is_array($deleteorderIds)) {
 			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select item(s)'));

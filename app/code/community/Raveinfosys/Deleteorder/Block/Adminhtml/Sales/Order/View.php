@@ -10,10 +10,13 @@
             'class'     => 'go'
         ), 0, 100, 'header', 'header');
     }
-	
+
     public function getDeleteUrl()
     {
-        return $this->getUrl('*/deleteorder/delete', array('_current'=>true));
-    }	
+        return $this->getUrl('*/deleteorder/delete', array(
+            '_current'                    => true,
+            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey()
+        ));
+    }
 }
 ?>
